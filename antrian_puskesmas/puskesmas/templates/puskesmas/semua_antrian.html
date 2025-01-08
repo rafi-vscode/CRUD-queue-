@@ -1,0 +1,39 @@
+{% extends 'puskesmas/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div style="max-width: 800px; margin: auto; padding: 20px;">
+    <h2 style="text-align: center; color: #6a1b9a;">Daftar Semua Antrian</h2>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <thead>
+            <tr style="background-color: #6a1b9a; color: white;">
+                <th style="padding: 10px; border: 1px solid #ccc;">No</th>
+                <th style="padding: 10px; border: 1px solid #ccc;">Nama</th>
+                <th style="padding: 10px; border: 1px solid #ccc;">Umur</th>
+                <th style="padding: 10px; border: 1px solid #ccc;">Nomor HP</th>
+                <th style="padding: 10px; border: 1px solid #ccc;">Poli</th>
+                <th style="padding: 10px; border: 1px solid #ccc;">Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for antrian in semua_antrian %}
+            <tr style="background-color: {% if forloop.counter|divisibleby:2 %}#f8f8f8{% else %}#ffffff{% endif %};">
+                <td style="padding: 10px; border: 1px solid #ccc; text-align: center;">{{ forloop.counter }}</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">{{ antrian.nama }}</td>
+                <td style="padding: 10px; border: 1px solid #ccc; text-align: center;">{{ antrian.umur }}</td>
+                <td style="padding: 10px; border: 1px solid #ccc;">{{ antrian.nomor_hp }}</td>
+                <td style="padding: 10px; border: 1px solid #ccc; text-align: center;">{{ antrian.poli|capfirst }}</td>
+                <td style="padding: 10px; border: 1px solid #ccc; text-align: center;">
+                    {% if antrian.selesai %}
+                        <span style="color: green;">Selesai</span>
+                    {% else %}
+                        <span style="color: red;">Belum Selesai</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

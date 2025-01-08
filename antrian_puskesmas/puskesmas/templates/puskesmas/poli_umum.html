@@ -1,0 +1,76 @@
+{% extends 'puskesmas/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center" style="color: #4a69bd; font-weight: bold;">Antrian Poli Umum</h2>
+
+    <!-- Kartu Antrian Belum Selesai -->
+    <div class="card">
+        <h3>Antrian Belum Selesai</h3>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Umur</th>
+                    <th>Nomor HP</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in antrian_belum_selesai %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ item.nama }}</td>
+                    <td>{{ item.umur }}</td>
+                    <td>{{ item.nomor_hp }}</td>
+                    <td>
+                        <!-- Tombol Eksekusi -->
+                        <a href="{% url 'eksekusi' item.id %}" class="btn btn-success btn-sm">Eksekusi</a>
+                        <!-- Tombol Edit -->
+                        <a href="{% url 'edit_antrian' item.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <!-- Tombol Delete -->
+                        <a href="{% url 'delete_antrian' item.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center">Tidak ada antrian untuk poli umum.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Kartu Antrian Sudah Selesai -->
+    <div class="card">
+        <h3>Antrian yang Sudah Selesai</h3>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama</th>
+                    <th>Umur</th>
+                    <th>Nomor HP</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in antrian_selesai %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ item.nama }}</td>
+                    <td>{{ item.umur }}</td>
+                    <td>{{ item.nomor_hp }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center">Tidak ada antrian yang selesai.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

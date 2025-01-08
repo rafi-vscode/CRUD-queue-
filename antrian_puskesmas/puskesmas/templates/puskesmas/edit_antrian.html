@@ -1,0 +1,36 @@
+{% extends 'puskesmas/base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div style="max-width: 400px; margin: auto; padding: 20px; border: 1px solid #ccc; border-radius: 10px; background-color: #f8f8f8; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <h2 style="color: #6a1b9a;">Edit Antrian</h2>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <div style="margin-bottom: 15px;">
+            <label for="nama" style="display: block; font-weight: bold; color: #6a1b9a;">Nama:</label>
+            <input type="text" name="nama" value="{{ antrian.nama }}" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" required>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="umur" style="display: block; font-weight: bold; color: #6a1b9a;">Umur:</label>
+            <input type="number" name="umur" value="{{ antrian.umur }}" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" required>
+        </div>
+        <div style="margin-bottom: 15px;">
+            <label for="nomor_hp" style="display: block; font-weight: bold; color: #6a1b9a;">Nomor HP:</label>
+            <input type="text" name="nomor_hp" value="{{ antrian.nomor_hp }}" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" required>
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label for="poli" style="display: block; font-weight: bold; color: #6a1b9a;">Pilih Poli:</label>
+            <select name="poli" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                <option value="anak" {% if antrian.poli == "anak" %}selected{% endif %}>Poli Anak</option>
+                <option value="umum" {% if antrian.poli == "umum" %}selected{% endif %}>Poli Umum</option>
+            </select>
+        </div>
+        <div style="margin-bottom: 20px; text-align: center;">
+            <button type="submit" style="background-color: #6a1b9a; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer;">Update</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

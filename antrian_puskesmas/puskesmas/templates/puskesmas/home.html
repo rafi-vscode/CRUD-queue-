@@ -1,0 +1,52 @@
+{% extends 'puskesmas/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container d-flex" style="height: 100%; width: 100%; overflow: hidden;">
+    <!-- Bagian Gambar -->
+    <div class="d-flex justify-content-center align-items-center" style="flex: 1; background: url('{% static "img/sakit.jpg" %}') no-repeat center center; background-size: cover; height: 100vh;">
+        <div class="text-center">
+            <h2 style="color: white; font-size: 2rem; font-weight: bold;">Learn to code with us.</h2>
+        </div>
+    </div>
+
+    <!-- Bagian Form -->
+    <div class="image-section" style="flex: 1; background: url('{% static "img/pn.png" %}') no-repeat center center; background-size: cover; max-width: 400px;">
+        <div class="justify-content-center" style="max-width: 400px; padding: 20px; border-radius: 10px; background-color: rgba(255, 255, 255, 0.9); box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+            <div style="text-align: center; margin-bottom: 200px;">
+                <h2 style="color: #4a69bd;">{% if edit_antrian %}Edit Antrian{% else %}Pendaftaran Antrian{% endif %}</h2>
+            </div>
+            <form method="POST">
+                {% csrf_token %}
+                {% if edit_antrian %}
+                    <input type="hidden" name="edit" value="{{ edit_antrian.id }}">
+                {% endif %}
+                <div style="margin-bottom: 15px;">
+                    <label for="nama" style="display: block; font-weight: bold; color: #4a69bd;">Nama:</label>
+                    <input type="text" name="nama" value="{{ edit_antrian.nama|default:'' }}" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" required>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label for="umur" style="display: block; font-weight: bold; color: #4a69bd;">Umur:</label>
+                    <input type="number" name="umur" value="{{ edit_antrian.umur|default:'' }}" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" required>
+                </div>
+                <div style="margin-bottom: 15px;">
+                    <label for="nomor_hp" style="display: block; font-weight: bold; color: #4a69bd;">Nomor HP:</label>
+                    <input type="text" name="nomor_hp" value="{{ edit_antrian.nomor_hp|default:'' }}" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;" required>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <label for="poli" style="display: block; font-weight: bold; color: #4a69bd;">Pilih Poli:</label>
+                    <select name="poli" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px;">
+                        <option value="anak" {% if edit_antrian.poli == "anak" %}selected{% endif %}>Poli Anak</option>
+                        <option value="umum" {% if edit_antrian.poli == "umum" %}selected{% endif %}>Poli Umum</option>
+                    </select>
+                </div>
+                <div style="margin-bottom: 20px; text-align: center;">
+                    <button type="submit" style="background-color: #4a69bd; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer;">
+                        {% if edit_antrian %}Update{% else %}Daftar{% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
